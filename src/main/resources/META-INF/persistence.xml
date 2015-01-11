@@ -6,6 +6,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     
     <class>com.myCompany.model.Model</class>
+    <class>com.myCompany.model.Car</class>
     
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     

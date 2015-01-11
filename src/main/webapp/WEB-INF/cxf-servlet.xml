@@ -10,6 +10,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- <jaxws:endpoint id="myService" implementor="com.myCompany.soapWebService.MyWebServiceImpl" address="/MyService"/> -->
     
     <jaxws:endpoint id="myService" implementor="#soapWebServiceLayer" address="/MyService"/>
+    <jaxws:endpoint id="carService" implementor="#soapCarWebServiceLayer" address="/CarService"/>
     
     <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
  		<property name="brokerURL" value="tcp://localhost:61616"/>
@@ -28,9 +29,17 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 		<constructor-arg ref="connectionFactory"/>
 		<constructor-arg ref="queue"/>
 	</bean>
+	<bean id="carApplicationLayer" class="com.myCompany.application.CarServiceImpl">
+		<constructor-arg ref="entityManagerUtil"/>
+		<constructor-arg ref="connectionFactory"/>
+		<constructor-arg ref="queue"/>
+	</bean>
 	
 	<bean id="soapWebServiceLayer" class="com.myCompany.soapWebService.MyWebServiceImpl">
 		<property name="myService" ref="applicationLayer" />
+	</bean>
+	<bean id="soapCarWebServiceLayer" class="com.myCompany.soapWebService.CarWebServiceImpl">
+		<property name="carService" ref="carApplicationLayer" />
 	</bean>
 
 </beans>
